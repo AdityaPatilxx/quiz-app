@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+body {
+  font-family: monospace;
+  background-color: #131319;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+}
+
+.panel {
+  @apply p-4 shadow-md rounded-xl bg-[#1c1c23] w-[450px] h-[500px];
+}
+
+.progressBar {
+  @apply h-full rounded-2xl duration-600 ease-in-out;
+}
+
+.progressBarContainer {
+  @apply h-3 flex-grow-3 ml-4 rounded-2xl;
+}
+
+/* width */
+::-webkit-scrollbar {
+  @apply w-2.5;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply rounded-2xl;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-[#1c1c23] rounded p-5;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400;
+}
