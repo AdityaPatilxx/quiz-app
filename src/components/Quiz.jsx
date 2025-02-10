@@ -20,31 +20,31 @@ const Quiz = () => {
       options: ["African Elephant", "Blue Whale", "Polar Bear", "Giraffe"],
       correctAnswer: "Blue Whale",
     },
-    // {
-    //   question: "What is the chemical symbol for water?",
-    //   options: ["H2O", "CO2", "NaCl", "O2"],
-    //   correctAnswer: "H2O",
-    // },
-    // {
-    //   question: "Who painted the Mona Lisa?",
-    //   options: ["Michelangelo", "Leonardo da Vinci", "Raphael", "Donatello"],
-    //   correctAnswer: "Leonardo da Vinci",
-    // },
-    // {
-    //   question: "In what year did World War II begin?",
-    //   options: ["1914", "1939", "1945", "1929"],
-    //   correctAnswer: "1939",
-    // },
-    // {
-    //   question: "What is the smallest country in the world?",
-    //   options: ["Monaco", "Nauru", "Tuvalu", "Vatican City"],
-    //   correctAnswer: "Vatican City",
-    // },
-    // {
-    //   question: "What is the currency of Japan?",
-    //   options: ["Won", "Yen", "Rupee", "Dollar"],
-    //   correctAnswer: "Yen",
-    // },
+    {
+      question: "What is the chemical symbol for water?",
+      options: ["H2O", "CO2", "NaCl", "O2"],
+      correctAnswer: "H2O",
+    },
+    {
+      question: "Who painted the Mona Lisa?",
+      options: ["Michelangelo", "Leonardo da Vinci", "Raphael", "Donatello"],
+      correctAnswer: "Leonardo da Vinci",
+    },
+    {
+      question: "In what year did World War II begin?",
+      options: ["1914", "1939", "1945", "1929"],
+      correctAnswer: "1939",
+    },
+    {
+      question: "What is the smallest country in the world?",
+      options: ["Monaco", "Nauru", "Tuvalu", "Vatican City"],
+      correctAnswer: "Vatican City",
+    },
+    {
+      question: "What is the currency of Japan?",
+      options: ["Won", "Yen", "Rupee", "Dollar"],
+      correctAnswer: "Yen",
+    },
   ];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
