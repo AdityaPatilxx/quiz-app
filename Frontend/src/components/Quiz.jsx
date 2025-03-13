@@ -1,56 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Question from "./Questions";
 import Result from "./Result";
+import axios from "axios"; // Add this import
+
 
 // Quiz Component
 const Quiz = () => {
-  const questions = [
-    {
-      question: "What is the capital of France?",
-      options: ["Berlin", "Paris", "Madrid", "Rome"],
-      correctAnswer: "Paris",
-    },
-    {
-      question: "Which planet is known as the Red Planet?",
-      options: ["Jupiter", "Mars", "Venus", "Saturn"],
-      correctAnswer: "Mars",
-    },
-    {
-      question: "What is the largest mammal in the world?",
-      options: ["African Elephant", "Blue Whale", "Polar Bear", "Giraffe"],
-      correctAnswer: "Blue Whale",
-    },
-    {
-      question: "What is the chemical symbol for water?",
-      options: ["H2O", "CO2", "NaCl", "O2"],
-      correctAnswer: "H2O",
-    },
-    {
-      question: "Who painted the Mona Lisa?",
-      options: ["Michelangelo", "Leonardo da Vinci", "Raphael", "Donatello"],
-      correctAnswer: "Leonardo da Vinci",
-    },
-    {
-      question: "In what year did World War II begin?",
-      options: ["1914", "1939", "1945", "1929"],
-      correctAnswer: "1939",
-    },
-    {
-      question: "What is the smallest country in the world?",
-      options: ["Monaco", "Nauru", "Tuvalu", "Vatican City"],
-      correctAnswer: "Vatican City",
-    },
-    {
-      question: "What is the currency of Japan?",
-      options: ["Won", "Yen", "Rupee", "Dollar"],
-      correctAnswer: "Yen",
-    },
-  ];
+  const [questions, setQuestions] = useState(null);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/questions/filter?limit=5")
+      .then((response) => setQuestions(response.data))
+      .catch((error) => {
+        console.error("Error fetching questions:", error);
+      });
+  }, []);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
+
+  if(!questions){
+    return <h1>Loading</h1>
+  }
 
   const totalQuestions = questions.length;
   const progress = parseInt(((currentQuestion + 1) / totalQuestions) * 100);
@@ -74,6 +47,8 @@ const Quiz = () => {
     setShowResult(false);
     setUserAnswers([]);
   };
+
+  
 
   return (
     <div className="max-w-xl mx-auto mt-10">

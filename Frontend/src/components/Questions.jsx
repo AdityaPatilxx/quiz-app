@@ -1,4 +1,5 @@
 import { useState } from "react";
+import he from 'he'
 
 export default function Question({
   question,
@@ -25,7 +26,7 @@ export default function Question({
   return (
     <div className="panel flex flex-col justify-between gap-3 relative">
 
-      <h3 className="text-xl font-semibold my-4 h-10">{question}</h3>
+      <h3 className="text-xl font-semibold my-4 h-10">{he.decode(question)}</h3>
 
       <div className="flex flex-col gap-3 mb-7">
         {options.map((option, index) => (
