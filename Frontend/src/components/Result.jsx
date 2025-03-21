@@ -1,64 +1,73 @@
+import { House, ChevronRight, RefreshCcw } from "lucide-react";
+import { Link } from "react-router-dom";
+
 export default function Result({
   score,
   totalQuestions,
   questions,
   userAnswers,
+  handleRestartQuiz,
 }) {
   const progressIs = parseInt((score / totalQuestions) * 100);
-  let barColor;
-  let barBgColor;
-  if (progressIs <= 50) {
-    barColor = "bg-red-500";
-    barBgColor = "bg-red-300";
-  } else if (progressIs <= 75) {
-    barColor = "bg-orange-500";
-    barBgColor = "bg-orange-300";
-  } else {
-    barColor = "bg-green-500";
-    barBgColor = "bg-green-300";
-  }
   return (
-    <div className="panel flex flex-col justify-between gap-3 relative">
-      <h2 className="text-2xl font-semibold mb-4">Quiz Summary</h2>
-
-      <div className="bg-[#131319] rounded-xl flex flex-col h-15 flex-grow overflow-auto">
-        {questions.map((currentQuestion, questionIndex) => (
-          <div className="mb-4 p-3" key={currentQuestion.id}>
-            <h4 className="text-lg font-semibold">
-              {currentQuestion.question}
-            </h4>
-            <ul className="list-disc ml-3">
-              {currentQuestion.options.map((currentOption, index) => (
-                <li
-                  key={index}
-                  className={`${
-                    currentOption === currentQuestion.correctAnswer
-                      ? "text-green-300"
-                      : ""
-                  }`}
-                >
-                  {currentOption}
-                  {userAnswers[questionIndex] === currentOption && (
-                    <span className="ml-2 text-amber-500">✔</span>
-                  )}
-                </li>
-              ))}
-            </ul>
+    <>
+      <div className="grid grid-cols-[1fr_8fr] gap-15 px-3">
+        <div>
+          <h3 className="text-3xl ">score</h3>
+          <div className="text-center">
+            <div className="text-7xl font-semibold text-accent2">{score}</div>
+            <div className="w-12 border-b border-gray-400 mx-auto my-1"></div>
+            <div className="text-7xl font-semibold text-accent2">
+              {totalQuestions}
+            </div>
           </div>
-        ))}
-      </div>
-
-      <div className="bg-[#131319] rounded flex justify-between items-center h-15 ">
-        <div className={`${barBgColor} progressBarContainer`}>
-          <div
-            className={`${barColor} progressBar`}
-            style={{ width: `${progressIs}%` }}
-          ></div>
+          <h3 className="text-3xl ">acc</h3>
+          <div className="text-7xl font-semibold text-accent2">
+            {progressIs}%
+          </div>
         </div>
-        <p className="flex-grow-1 text-center">
-          {score} / {totalQuestions} points
-        </p>
+
+        <div className="bg-accent1 rounded-xl flex flex-col max-h-[300px] overflow-auto">
+          {questions.map((currentQuestion, questionIndex) => (
+            <div className="mb-4 p-3" key={currentQuestion.id}>
+              <h4 className="text-lg font-semibold">
+                {currentQuestion.question}
+              </h4>
+              <ul className="list-disc ml-3">
+                {currentQuestion.options.map((currentOption, index) => (
+                  <li
+                    key={index}
+                    className={`${
+                      currentOption === currentQuestion.correctAnswer
+                        ? "text-green-300"
+                        : ""
+                    }`}
+                  >
+                    {currentOption}
+                    {userAnswers[questionIndex] === currentOption && (
+                      <span className="ml-2 text-amber-500">✔</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex justify-center items-center gap-20 col-span-2">
+          <Link to="/">
+            <House className="h-9 w-9  text-secondary hover:text-font" />
+          </Link>
+
+          <RefreshCcw
+            className="h-9 w-9  text-secondary hover:text-font"
+            onClick={handleRestartQuiz}
+          />
+          <Link to="/quiz">
+            <ChevronRight className="h-9 w-9  text-secondary hover:text-font" />
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

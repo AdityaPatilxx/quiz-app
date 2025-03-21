@@ -1,5 +1,6 @@
 import { useState } from "react";
-import he from 'he'
+import he from "he";
+import { ChevronRight } from "lucide-react";
 
 export default function Question({
   question,
@@ -24,13 +25,14 @@ export default function Question({
   };
 
   return (
-    <div className="panel flex flex-col justify-between gap-3 relative">
+    <>
+      <h3 className="col-span-2 text-3xl text-accent2">
+        {he.decode(question)}
+      </h3>
 
-      <h3 className="text-xl font-semibold my-4 h-10">{he.decode(question)}</h3>
-
-      <div className="flex flex-col gap-3 mb-7">
+      <div className="grid gap-4 md:grid-cols-2">
         {options.map((option, index) => (
-          <label key={index} className="flex cursor-pointer">
+          <label key={index} className="cursor-pointer flex justify-center  ">
             <input
               type="radio"
               name="answer"
@@ -39,22 +41,15 @@ export default function Question({
               onChange={handleOptionChange}
               className="appearance-none peer"
             />
-            <div className="px-2.5 py-5 rounded w-full duration-500 ease-in-out bg-[#131319] peer-checked:bg-blue-300">
-              {option}
-            </div>
+            <div className="option w-full h-full">{option}</div>
           </label>
         ))}
       </div>
 
-      <div className="bg-[#131319] rounded flex justify-between items-center h-15 ">
-        <div className="bg-white progressBarContainer">
-          <div className="bg-green-400 progressBar" style={{ width: `${progress}%` }}></div>
-        </div>
-        <button onClick={handleSubmit} className="cursor-pointer flex-grow-1 w-[130px]">
-          {(progress === 100) ? 'View Score' : 'Next Question'}
-        </button>
-      </div>
-
-    </div>
+      <ChevronRight
+        onClick={handleSubmit}
+        className="h-10 w-10 mx-auto text-secondary hover:text-font"
+      />
+    </>
   );
 }
