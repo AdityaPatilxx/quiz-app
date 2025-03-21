@@ -21,7 +21,7 @@ function QuizSettings({ onSettingsChange }) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10 mb-10">
+    <div className="flex flex-col items-center gap-10">
       <div
         className="flex w-min items-center gap-3 rounded-xl bg-(--color-accent1)"
         id="content-bar"

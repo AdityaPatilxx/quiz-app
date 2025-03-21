@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Atom, BookOpen, Earth, Video } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Atom, BookOpen, Earth, Play, Video } from "lucide-react";
 import QuizSettings from "./QuizSettings";
 
 const Home = () => {
@@ -23,9 +23,18 @@ const Home = () => {
     return settings.category === category ? "active" : "";
   };
 
+  const navigate = useNavigate();
+
+  const handleStartQuiz = () => {
+    navigate(
+      `/quiz?mode=${settings.mode}&difficulty=${settings.difficulty}&questionCount=${settings.questionCount}&category=${settings.category}`
+    );
+  };
+
   return (
-    <main className="grid grid-rows-[auto_1fr] gap-y-5">
+    <main className="grid grid-rows-[auto_1fr_auto] gap-y-10">
       <QuizSettings onSettingsChange={handleSettingsChange} />
+
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 mb-10">
           <div
@@ -57,14 +66,9 @@ const Home = () => {
             Films
           </div>
         </div>
-        <Link
-          to={`/quiz?mode=${settings.mode}&difficulty=${settings.difficulty}&questionCount=${settings.questionCount}&category=${settings.category}`}
-        >
-          <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Start Quiz
-          </button>
-        </Link>
       </div>
+
+      <Play onClick={handleStartQuiz} className="w-15 h-15 mx-auto hover:text-accent2" />
     </main>
   );
 };
