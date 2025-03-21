@@ -3,11 +3,10 @@ import "./App.css";
 import Home from "./components/Home";
 import Quiz from "./components/Quiz";
 import Nav from "./components/Nav";
-import QuizSettings from "./components/QuizSettings";
 
 function App() {
   return (
-    <div class="mx-auto grid min-h-screen w-full max-w-screen-xl grid-rows-[auto_1fr_auto] gap-y-8 overflow-hidden px-8 py-8">
+    <div className="mx-auto grid min-h-screen w-full max-w-screen-xl grid-rows-[auto_1fr_auto] gap-y-8 overflow-hidden px-8 py-8">
       <Nav></Nav>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>

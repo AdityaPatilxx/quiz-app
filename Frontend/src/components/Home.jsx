@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Atom, BookOpen, Earth, Video, Play } from "lucide-react";
+import { Atom, BookOpen, Earth, Video } from "lucide-react";
 import QuizSettings from "./QuizSettings";
 
 const Home = () => {

@@ -68,5 +68,5 @@ body {
 }
 
 .card{
-  @apply bg-accent1 rounded-2xl h-60 flex flex-col justify-center items-center gap-2 text-2xl
+  @apply bg-accent1 rounded-2xl h-60 flex flex-col justify-center items-center gap-2 text-2xl 0
 }

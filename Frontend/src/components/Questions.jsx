@@ -11,8 +11,8 @@ export default function Question({
 }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
   };
 
   const handleSubmit = () => {
@@ -24,25 +24,30 @@ export default function Question({
     }
   };
 
+  const getOptionClass = (option) => {
+    if (selectedOption === option) {
+      return "text-accent1 bg-accent2 ";
+    }
+    return "bg-accent1 text-font hover:bg-accent2";
+  };
+
   return (
     <>
-      <h3 className="col-span-2 text-3xl text-accent2">
+      <h3 className="col-span-2 text-3xl text-accent2 min-h-[80px]">
         {he.decode(question)}
       </h3>
 
       <div className="grid gap-4 md:grid-cols-2">
         {options.map((option, index) => (
-          <label key={index} className="cursor-pointer flex justify-center  ">
-            <input
-              type="radio"
-              name="answer"
-              value={option}
-              checked={selectedOption === option}
-              onChange={handleOptionChange}
-              className="appearance-none peer"
-            />
-            <div className="option w-full h-full">{option}</div>
-          </label>
+          <div
+            key={index}
+            onClick={() => handleOptionChange(option)}
+            className={` text-lg hover:text-accent1 cursor-pointer flex justify-center items-center p-4 rounded-lg transition-colors duration-300 ${getOptionClass(
+              option
+            )}`}
+          >
+            {option}
+          </div>
         ))}
       </div>
 
