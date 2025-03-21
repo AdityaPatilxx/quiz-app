@@ -1,5 +1,5 @@
 import { House, ChevronRight, RefreshCcw } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Result({
   score,
@@ -9,6 +9,13 @@ export default function Result({
   handleRestartQuiz,
 }) {
   const progressIs = parseInt((score / totalQuestions) * 100);
+  const navigate = useNavigate();
+
+  const handleNextQuiz = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    navigate(`/quiz?${queryParams.toString()}`);
+  };
+
   return (
     <>
       <div className="grid grid-cols-[1fr_8fr] gap-15 px-3">
@@ -63,9 +70,10 @@ export default function Result({
             className="h-9 w-9  text-secondary hover:text-font"
             onClick={handleRestartQuiz}
           />
-          <Link to="/quiz">
-            <ChevronRight className="h-9 w-9  text-secondary hover:text-font" />
-          </Link>
+          <ChevronRight
+            className="h-9 w-9  text-secondary hover:text-font"
+            onClick={handleNextQuiz}
+          />
         </div>
       </div>
     </>

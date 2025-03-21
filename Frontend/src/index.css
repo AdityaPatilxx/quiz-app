@@ -2,11 +2,11 @@
 
 @theme {
   /* ... */
-  --color-accent1: #2C2E31;
+  --color-accent1: #2c2e31;
   --color-primary: #323437;
   --color-secondary: #646669;
-  --color-font: #D1D0C6;
-  --color-accent2:#DBB941
+  --color-font: #d1d0c6;
+  --color-accent2: #dbb941;
 }
 
 /* *{
@@ -16,7 +16,7 @@
 @import "tailwindcss";
 
 body {
-  @apply bg-primary text-secondary min-h-svh font-mono
+  @apply bg-primary text-secondary min-h-svh font-mono;
 }
 
 /* .panel {
@@ -51,20 +51,22 @@ body {
   @apply bg-slate-400;
 }
 
-
-
-.btn{
-  @apply py-2 px-5 hover:text-font cursor-pointer
+.btn {
+  @apply py-2 px-5 hover:text-font cursor-pointer;
 }
 
-.spacer{
-  @apply h-7 w-[7px] bg-primary rounded
+.spacer {
+  @apply h-7 w-[7px] bg-primary rounded;
 }
 
-.active{
-  @apply text-accent2
+.active {
+  @apply text-accent2;
 }
 
-.card{
-  @apply bg-accent1 hover:bg-accent2 rounded-2xl h-60 flex flex-col justify-center items-center gap-2 text-2xl 
+.card {
+  @apply bg-accent1 hover:bg-accent2 rounded-2xl h-60 flex flex-col justify-center items-center gap-2 text-2xl;
+}
+
+.card.active {
+  @apply text-accent1 bg-accent2;
 }
