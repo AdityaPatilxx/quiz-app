@@ -1,5 +1,6 @@
 import { House, ChevronRight, RefreshCcw } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import QuizSettings from "./QuizSettings";
 
 export default function Result({
   score,
@@ -7,15 +8,9 @@ export default function Result({
   questions,
   userAnswers,
   handleRestartQuiz,
+  handleNextQuiz, // Add the new prop
 }) {
   const progressIs = parseInt((score / totalQuestions) * 100);
-  const navigate = useNavigate();
-
-  const handleNextQuiz = () => {
-    const queryParams = new URLSearchParams(window.location.search);
-    navigate(`/quiz?${queryParams.toString()}`);
-  };
-
   return (
     <>
       <div className="grid grid-cols-[1fr_8fr] gap-15 px-3">
@@ -63,15 +58,17 @@ export default function Result({
 
         <div className="flex justify-center items-center gap-20 col-span-2">
           <Link to="/">
-            <House className="h-9 w-9  text-secondary hover:text-font" />
+            <House className="h-9 w-9 text-secondary hover:text-font" />
           </Link>
 
           <RefreshCcw
-            className="h-9 w-9  text-secondary hover:text-font"
+            className="h-9 w-9 text-secondary hover:text-font"
             onClick={handleRestartQuiz}
           />
+
+          {/* Use the handleNextQuiz function instead of Link */}
           <ChevronRight
-            className="h-9 w-9  text-secondary hover:text-font"
+            className="h-9 w-9 text-secondary hover:text-font cursor-pointer"
             onClick={handleNextQuiz}
           />
         </div>

@@ -13,29 +13,31 @@ const Quiz = () => {
   const category = queryParams.get("category");
 
   const [questions, setQuestions] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get(
-        `http://localhost:3001/questions/filter?limit=${questionCount}&difficulty=${difficulty}&category=${category}`
-      )
-      .then((response) => setQuestions(response.data))
-      .catch((error) => {
-        console.error("Error fetching questions:", error);
-      });
-  }, [questionCount, difficulty, category]);
-
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  if (!questions) {
-    return <h1>Loading</h1>;
-  }
+  const fetchQuestions = () => {
+    setLoading(true);
+    axios
+      .get(
+        `http://localhost:3001/questions/filter?limit=${questionCount}&difficulty=${difficulty}&category=${category}`
+      )
+      .then((response) => {
+        setQuestions(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching questions:", error);
+        setLoading(false);
+      });
+  };
 
-  const totalQuestions = questions.length;
-  const progress = parseInt(((currentQuestion + 1) / totalQuestions) * 100);
+  useEffect(() => {
+    fetchQuestions();
+  }, [questionCount, difficulty, category]);
 
   const handleAnswer = (isCorrect, selectedOption) => {
     if (isCorrect) {
@@ -57,6 +59,29 @@ const Quiz = () => {
     setUserAnswers([]);
   };
 
+  // New function to handle "Next" button in Result component
+  const handleNextQuiz = () => {
+    // Reset the current state
+    setCurrentQuestion(0);
+    setScore(0);
+    setShowResult(false);
+    setUserAnswers([]);
+
+    // Fetch new questions with the same settings
+    fetchQuestions();
+  };
+
+  if (loading) {
+    return <h1>Loading</h1>;
+  }
+
+  if (!questions || questions.length === 0) {
+    return <h1>No questions available for the selected criteria</h1>;
+  }
+
+  const totalQuestions = questions.length;
+  const progress = parseInt(((currentQuestion + 1) / totalQuestions) * 100);
+
   return (
     <div className="mx-auto flex flex-col justify-center gap-10 p-2 w-full ">
       {!showResult ? (
@@ -74,6 +99,7 @@ const Quiz = () => {
           questions={questions}
           userAnswers={userAnswers}
           handleRestartQuiz={handleRestartQuiz}
+          handleNextQuiz={handleNextQuiz} // Pass the new function to Result
         />
       )}
     </div>
