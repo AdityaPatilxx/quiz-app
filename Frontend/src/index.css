@@ -68,5 +68,5 @@ body {
 }
 
 .card.active {
-  @apply text-accent1 bg-accent2;
+  @apply text-accent1  bg-accent2;
 }

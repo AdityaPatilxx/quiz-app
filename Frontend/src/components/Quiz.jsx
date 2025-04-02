@@ -59,9 +59,8 @@ const Quiz = () => {
     setUserAnswers([]);
   };
 
-  // New function to handle "Next" button in Result component
   const handleNextQuiz = () => {
-    // Reset the current state
+    
     setCurrentQuestion(0);
     setScore(0);
     setShowResult(false);
