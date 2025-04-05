@@ -1,72 +1,126 @@
 @import "tailwindcss";
 
 @theme {
-  /* ... */
-  --color-accent1: #2c2e31;
-  --color-primary: #323437;
-  --color-secondary: #646669;
-  --color-font: #d1d0c6;
-  --color-accent2: #dbb941;
+  /* Backgrounds */
+  --color-background: #ffffff;
+
+  /* Text Colors */
+  --color-foreground: #0c0a0f;
+
+  /* Primary Colors */
+  --color-primary: #437fe9;
+
+  /* Secondary Colors */
+  --color-secondary: #f0f4f9;
+  --color-secondary-foreground: #1d2939;
+  /* Accent  */
+  --color-accent: #f0a32a;
+  --color-accent-foreground: #1d2939;
+
+  /* Muted */
+  --color-muted: #f0f4f9;
+  --color-muted-foreground: #697386;
+
+  /* Error */
+  --color-error: #f03d3d;
+
+  /* Border*/
+  --color-border: #e0e5eb;
 }
 
-/* *{
-  outline: 1px solid
-} */
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-@import "tailwindcss";
-
-body {
-  @apply bg-primary text-secondary min-h-svh font-mono;
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
 }
 
-/* .panel {
-  @apply p-4 shadow-md rounded-xl bg-[#1c1c23] w-[550px] h-[500px];
-} */
-
-.progressBar {
-  @apply h-full rounded-2xl duration-600 ease-in-out;
+/* Custom styles */
+.category-card {
+  @apply relative flex flex-col items-center justify-center p-6 rounded-xl transition-all duration-300 bg-background hover:bg-accent/10 border border-border hover:border-accent cursor-pointer overflow-hidden;
 }
 
-.progressBarContainer {
-  @apply h-3 flex-grow-3 ml-4 rounded-2xl;
+.category-card.active {
+  @apply bg-accent/20 border-accent;
 }
 
-/* width */
+.category-card .icon {
+  @apply text-muted-foreground transition-colors duration-300;
+}
+
+.category-card.active .icon,
+.category-card:hover .icon {
+  @apply text-accent;
+}
+
+.category-card::after {
+  content: "";
+  @apply absolute bottom-0 left-0 w-full h-1 bg-accent scale-x-0 transition-transform duration-300 origin-left;
+}
+
+.category-card.active::after,
+.category-card:hover::after {
+  @apply scale-x-100;
+}
+
+.quiz-option {
+  @apply relative flex items-center justify-center p-4 rounded-lg transition-all duration-300 
+  bg-background hover:bg-accent/10 border border-border hover:border-accent cursor-pointer overflow-hidden;
+}
+
+.quiz-option.selected {
+  @apply bg-accent/20 border-accent text-accent-foreground;
+}
+
+.settings-button {
+  @apply px-4 py-2 rounded-md transition-colors duration-200 hover:bg-accent/10 hover:text-accent;
+}
+
+.settings-button.active {
+  @apply bg-accent/20 text-accent;
+}
+
+/* Scrollbar styling */
 ::-webkit-scrollbar {
-  @apply w-2.5;
+  @apply w-2;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
-  @apply rounded-2xl;
+  @apply bg-muted rounded-full;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-[#1c1c23] rounded p-5;
+  @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50;
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400;
+/* Animation classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-.btn {
-  @apply py-2 px-5 hover:text-font cursor-pointer;
+.slide-up {
+  animation: slideUp 0.5s ease-in-out;
 }
 
-.spacer {
-  @apply h-7 w-[7px] bg-primary rounded;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.active {
-  @apply text-accent2;
-}
-
-.card {
-  @apply bg-accent1 hover:bg-accent2 rounded-2xl h-60 flex flex-col justify-center items-center gap-2 text-2xl;
-}
-
-.card.active {
-  @apply text-accent1  bg-accent2;
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

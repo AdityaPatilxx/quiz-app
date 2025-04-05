@@ -1,8 +1,11 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Question from "./Questions";
 import Result from "./Result";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
 
 const Quiz = () => {
   const location = useLocation();
@@ -60,29 +63,58 @@ const Quiz = () => {
   };
 
   const handleNextQuiz = () => {
-    
     setCurrentQuestion(0);
     setScore(0);
     setShowResult(false);
     setUserAnswers([]);
-
-    // Fetch new questions with the same settings
     fetchQuestions();
   };
 
   if (loading) {
-    return <h1>Loading</h1>;
+    return (
+      <div className="flex flex-col items-center justify-center h-[60vh]">
+        <Loader2 className="w-12 h-12 text-accent animate-spin mb-4" />
+        <p className="text-lg">Loading questions...</p>
+      </div>
+    );
   }
 
   if (!questions || questions.length === 0) {
-    return <h1>No questions available for the selected criteria</h1>;
+    return (
+      <div className="text-center py-12">
+        <h2 className="text-2xl font-semibold mb-4">No Questions Available</h2>
+        <p className="text-muted-foreground mb-6">
+          We couldn't find any questions matching your selected criteria.
+        </p>
+        <button
+          onClick={() => window.history.back()}
+          className="px-6 py-3 bg-accent hover:bg-accent/90 text-accent-foreground rounded-full font-medium transition-all"
+        >
+          Go Back
+        </button>
+      </div>
+    );
   }
 
   const totalQuestions = questions.length;
-  const progress = parseInt(((currentQuestion + 1) / totalQuestions) * 100);
+  const progress = Number.parseInt(
+    ((currentQuestion + 1) / totalQuestions) * 100
+  );
 
   return (
-    <div className="mx-auto flex flex-col justify-center gap-10 p-2 w-full ">
+    <div className="max-w-4xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">{category} Quiz</h1>
+        <div className="flex items-center gap-4">
+          <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">
+            {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+          </span>
+          <span className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm">
+            {mode.charAt(0).toUpperCase() + mode.slice(1)} Mode
+          </span>
+        </div>
+      </div>
+
       {!showResult ? (
         <Question
           question={questions[currentQuestion].question}
@@ -90,6 +122,7 @@ const Quiz = () => {
           correctAnswer={questions[currentQuestion].correctAnswer}
           progress={progress}
           onAnswer={handleAnswer}
+          mode={mode}
         />
       ) : (
         <Result
@@ -98,7 +131,9 @@ const Quiz = () => {
           questions={questions}
           userAnswers={userAnswers}
           handleRestartQuiz={handleRestartQuiz}
-          handleNextQuiz={handleNextQuiz} // Pass the new function to Result
+          handleNextQuiz={handleNextQuiz}
+          category={category}
+          difficulty={difficulty}
         />
       )}
     </div>

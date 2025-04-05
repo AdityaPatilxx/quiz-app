@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
-require("dotenv").config();
+
+const MONGO_URL =
+  "mongodb+srv://ap0696901:admin@cluster0.uaomx.mongodb.net/quizBase?retryWrites=true&w=majority";
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL);
+    await mongoose.connect(MONGO_URL);
     console.log("✅ MongoDB Connected");
   } catch (error) {
     console.error("❌ MongoDB Connection Error:", err);
