@@ -144,10 +144,10 @@ export default function Question({
                 }}
                 aria-pressed={selectedOption === option}
               >
-                <div className="flex items-center gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-medium flex items-center justify-center">
+                <div className="flex items-center  gap-3">
+                  {/* <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-medium flex items-center justify-center">
                     {index + 1}
-                  </span>
+                  </span> */}
                   <span className="text-lg">{option}</span>
                 </div>
               </div>

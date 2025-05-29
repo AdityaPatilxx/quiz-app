@@ -4,6 +4,8 @@ import Question from "./Questions";
 import Result from "./Result";
 import axios from "axios";
 import { Loader2, AlertCircle, RefreshCcw } from "lucide-react";
+import { auth } from "../../firebase";
+import { saveQuizProgress } from "../../progressUtils";
 
 const Quiz = () => {
   const location = useLocation();
@@ -181,14 +183,40 @@ const Quiz = () => {
     fetchQuestions();
   }, [fetchQuestions]);
 
-  const handleAnswer = (isCorrect, selectedOption) => {
-    if (isCorrect) setScore((prev) => prev + 1);
+  const handleAnswer = async (isCorrect, selectedOption) => {
+    const updatedScore = isCorrect ? score + 1 : score;
+    if (isCorrect) setScore(updatedScore);
     setUserAnswers((prev) => [...prev, selectedOption]);
 
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
     } else {
       setShowResult(true);
+      const user = auth.currentUser;
+      if (user) {
+        console.log("Attempting to save quiz progress for user:", user.uid);
+        console.log("Quiz data:", {
+          category,
+          difficulty,
+          questionCount: parseInt(questionCount),
+          mode,
+          score: updatedScore,
+        });
+        try {
+          await saveQuizProgress(user.uid, {
+            category,
+            difficulty,
+            questionCount: parseInt(questionCount),
+            mode,
+            score: updatedScore,
+          });
+          console.log("Progress saved successfully!");
+        } catch (error) {
+          console.error("Failed to save progress:", error.message, error.code);
+        }
+      } else {
+        console.warn("No authenticated user found. Progress not saved.");
+      }
     }
   };
 
