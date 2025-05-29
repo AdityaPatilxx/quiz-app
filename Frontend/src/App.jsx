@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
-import Quiz from "./components/Quiz";
+import Quiz from "./components/quiz/Quiz";
 import Nav from "./components/Nav";
 import Error404 from "./components/Error404";
 import { AuthProvider } from "./contexts/AuthContext";
