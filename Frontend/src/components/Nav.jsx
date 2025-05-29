@@ -1,16 +1,9 @@
 "use client";
 
-import {
-  User,
-  Settings,
-  Info,
-  Crown,
-  FileQuestion,
-  Menu,
-  X,
-} from "lucide-react";
+import { Settings, Info, Crown, FileQuestion, Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import UserMenu from "./UserMenu";
 
 function Nav() {
   const navigate = useNavigate();
@@ -54,10 +47,7 @@ function Nav() {
             <span>Settings</span>
           </button>
           <div className="h-8 w-px bg-border"></div>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors">
-            <User className="w-5 h-5 text-accent" />
-            <span>Account</span>
-          </button>
+          <UserMenu />
         </nav>
 
         {/* Mobile menu */}
@@ -76,10 +66,9 @@ function Nav() {
                 <Settings className="w-5 h-5" />
                 <span>Settings</span>
               </button>
-              <button className="flex items-center gap-2 p-2 hover:bg-accent/10 rounded-md">
-                <User className="w-5 h-5" />
-                <span>Account</span>
-              </button>
+              <div className="p-2">
+                <UserMenu />
+              </div>
             </nav>
           </div>
         )}
