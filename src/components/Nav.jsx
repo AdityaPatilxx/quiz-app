@@ -1,7 +1,5 @@
-"use client";
-
 import { Settings, Info, Crown, FileQuestion, Menu, X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import UserMenu from "./UserMenu";
 
@@ -34,18 +32,27 @@ function Nav() {
 
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          <button className="nav-item flex items-center gap-1 hover:text-accent transition-colors">
+          <Link
+            to="/about"
+            className="nav-item flex items-center gap-1 hover:text-accent transition-colors"
+          >
             <Info className="w-5 h-5" />
             <span>About</span>
-          </button>
-          <button className="nav-item flex items-center gap-1 hover:text-accent transition-colors">
+          </Link>
+          <Link
+            to="/leaderboard"
+            className="nav-item flex items-center gap-1 hover:text-accent transition-colors"
+          >
             <Crown className="w-5 h-5" />
             <span>Leaderboard</span>
-          </button>
-          <button className="nav-item flex items-center gap-1 hover:text-accent transition-colors">
+          </Link>
+          <Link
+            to="/settings"
+            className="nav-item flex items-center gap-1 hover:text-accent transition-colors"
+          >
             <Settings className="w-5 h-5" />
             <span>Settings</span>
-          </button>
+          </Link>
           <div className="h-8 w-px bg-border"></div>
           <UserMenu />
         </nav>
@@ -54,18 +61,30 @@ function Nav() {
         {isMenuOpen && (
           <div className="absolute top-full left-0 right-0 bg-background border-b border-border md:hidden">
             <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
-              <button className="flex items-center gap-2 p-2 hover:bg-accent/10 rounded-md">
+              <Link
+                to="/about"
+                className="flex items-center gap-2 p-2 hover:bg-accent/10 rounded-md"
+                onClick={toggleMenu}
+              >
                 <Info className="w-5 h-5" />
                 <span>About</span>
-              </button>
-              <button className="flex items-center gap-2 p-2 hover:bg-accent/10 rounded-md">
+              </Link>
+              <Link
+                to="/leaderboard"
+                className="flex items-center gap-2 p-2 hover:bg-accent/10 rounded-md"
+                onClick={toggleMenu}
+              >
                 <Crown className="w-5 h-5" />
                 <span>Leaderboard</span>
-              </button>
-              <button className="flex items-center gap-2 p-2 hover:bg-accent/10 rounded-md">
+              </Link>
+              <Link
+                to="/settings"
+                className="flex items-center gap-2 p-2 hover:bg-accent/10 rounded-md"
+                onClick={toggleMenu}
+              >
                 <Settings className="w-5 h-5" />
                 <span>Settings</span>
-              </button>
+              </Link>
               <div className="p-2">
                 <UserMenu />
               </div>

@@ -17,7 +17,7 @@ import QuizSettings from "./QuizSettings";
 
 const Home = () => {
   const navigate = useNavigate();
-  
+
   const [settings, setSettings] = useState({
     mode: "standard",
     difficulty: "easy",
@@ -26,58 +26,64 @@ const Home = () => {
   });
 
   // Memoized category data to prevent recreating on each render
-  const categories = useMemo(() => [
-    {
-      id: "Science",
-      name: "Science",
-      icon: Atom,
-      description: "Physics, Chemistry, Biology and more",
-      color: "text-blue-500",
-      bgColor: "bg-blue-50",
-    },
-    {
-      id: "History",
-      name: "History", 
-      icon: BookOpen,
-      description: "Ancient civilizations to modern times",
-      color: "text-amber-500",
-      bgColor: "bg-amber-50",
-    },
-    {
-      id: "Geography",
-      name: "Geography",
-      icon: Earth,
-      description: "Countries, capitals, and landmarks", 
-      color: "text-green-500",
-      bgColor: "bg-green-50",
-    },
-    {
-      id: "Film",
-      name: "Films",
-      icon: Video,
-      description: "Movies, directors, and cinema history",
-      color: "text-purple-500", 
-      bgColor: "bg-purple-50",
-    },
-  ], []);
+  const categories = useMemo(
+    () => [
+      {
+        id: "Science",
+        name: "Science",
+        icon: Atom,
+        description: "Physics, Chemistry, Biology and more",
+        color: "text-blue-500",
+        bgColor: "bg-blue-50",
+      },
+      {
+        id: "History",
+        name: "History",
+        icon: BookOpen,
+        description: "Ancient civilizations to modern times",
+        color: "text-amber-500",
+        bgColor: "bg-amber-50",
+      },
+      {
+        id: "Geography",
+        name: "Geography",
+        icon: Earth,
+        description: "Countries, capitals, and landmarks",
+        color: "text-green-500",
+        bgColor: "bg-green-50",
+      },
+      {
+        id: "Film",
+        name: "Films",
+        icon: Video,
+        description: "Movies, directors, and cinema history",
+        color: "text-purple-500",
+        bgColor: "bg-purple-50",
+      },
+    ],
+    []
+  );
 
-  const features = useMemo(() => [
-    {
-      icon: Brain,
-      title: "Knowledge Challenge",
-      description: "Test your knowledge across various subjects and topics"
-    },
-    {
-      icon: Lightbulb,
-      title: "Learn As You Play", 
-      description: "Discover new facts and information with each question"
-    },
-    {
-      icon: Sparkles,
-      title: "Track Progress",
-      description: "See your scores and improvement over time"
-    }
-  ], []);
+  const features = useMemo(
+    () => [
+      {
+        icon: Brain,
+        title: "Knowledge Challenge",
+        description: "Test your knowledge across various subjects and topics",
+      },
+      {
+        icon: Lightbulb,
+        title: "Learn As You Play",
+        description: "Discover new facts and information with each question",
+      },
+      {
+        icon: Sparkles,
+        title: "Track Progress",
+        description: "See your scores and improvement over time",
+      },
+    ],
+    []
+  );
 
   const handleSettingsChange = useCallback((newSettings) => {
     setSettings((prevSettings) => ({ ...prevSettings, ...newSettings }));
@@ -87,18 +93,21 @@ const Home = () => {
     setSettings((prevSettings) => ({ ...prevSettings, category }));
   }, []);
 
-  const getCategoryClass = useCallback((category) => {
-    return settings.category === category ? "active" : "";
-  }, [settings.category]);
+  const getCategoryClass = useCallback(
+    (category) => {
+      return settings.category === category ? "active" : "";
+    },
+    [settings.category]
+  );
 
   const handleStartQuiz = useCallback(() => {
     const queryString = new URLSearchParams({
       mode: settings.mode,
       difficulty: settings.difficulty,
       questionCount: settings.questionCount.toString(),
-      category: settings.category
+      category: settings.category,
     }).toString();
-    
+
     navigate(`/quiz?${queryString}`);
   }, [navigate, settings]);
 
@@ -134,19 +143,23 @@ const Home = () => {
             return (
               <div
                 key={category.id}
-                className={`category-card group ${getCategoryClass(category.id)}`}
+                className={`category-card group ${getCategoryClass(
+                  category.id
+                )}`}
                 onClick={() => handleCategoryChange(category.id)}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
+                  if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
                     handleCategoryChange(category.id);
                   }
                 }}
                 aria-pressed={settings.category === category.id}
               >
-                <div className={`w-16 h-16 rounded-full ${category.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                <div
+                  className={`w-16 h-16 rounded-full ${category.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                >
                   <IconComponent className={`w-8 h-8 ${category.color}`} />
                 </div>
                 <h3 className="text-lg font-medium mb-2">{category.name}</h3>
@@ -175,7 +188,7 @@ const Home = () => {
         {features.map((feature, index) => {
           const IconComponent = feature.icon;
           return (
-            <div 
+            <div
               key={index}
               className="flex flex-col items-center text-center p-6 rounded-lg border border-border hover:shadow-md transition-shadow"
             >
@@ -197,13 +210,15 @@ const Home = () => {
             {settings.category}
           </span>
           <span className="px-2 py-1 bg-background rounded">
-            {settings.difficulty.charAt(0).toUpperCase() + settings.difficulty.slice(1)}
+            {settings.difficulty.charAt(0).toUpperCase() +
+              settings.difficulty.slice(1)}
           </span>
           <span className="px-2 py-1 bg-background rounded">
             {settings.questionCount} questions
           </span>
           <span className="px-2 py-1 bg-background rounded">
-            {settings.mode.charAt(0).toUpperCase() + settings.mode.slice(1)} mode
+            {settings.mode.charAt(0).toUpperCase() + settings.mode.slice(1)}{" "}
+            mode
           </span>
         </div>
       </div>

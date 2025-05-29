@@ -44,7 +44,9 @@ const Quiz = () => {
 
   const getSessionToken = useCallback(async () => {
     try {
-      const response = await axios.get("https://opentdb.com/api_token.php?command=request");
+      const response = await axios.get(
+        "https://opentdb.com/api_token.php?command=request"
+      );
       if (response.data.response_code === 0) {
         localStorage.setItem("trivia_token", response.data.token);
         setSessionToken(response.data.token);
@@ -115,7 +117,9 @@ const Quiz = () => {
               ...q,
               question: decodeURIComponent(q.question),
               correct_answer: decodeURIComponent(q.correct_answer),
-              incorrect_answers: q.incorrect_answers.map((ans) => decodeURIComponent(ans)),
+              incorrect_answers: q.incorrect_answers.map((ans) =>
+                decodeURIComponent(ans)
+              ),
             }));
             const transformedQuestions = transformQuestionData(decodedResults);
             setQuestions(transformedQuestions);
@@ -135,7 +139,8 @@ const Quiz = () => {
         case 2:
           setError({
             title: "Configuration Error",
-            message: "There was an issue with the quiz settings. Please try again.",
+            message:
+              "There was an issue with the quiz settings. Please try again.",
             canRetry: true,
           });
           break;
@@ -151,13 +156,16 @@ const Quiz = () => {
         case 5:
           setError({
             title: "Too Many Requests",
-            message: "You've made too many requests. Please wait a bit and try again.",
+            message:
+              "You've made too many requests. Please wait a bit and try again.",
             canRetry: true,
           });
           break;
 
         default:
-          throw new Error(`API returned unknown code: ${response.data.response_code}`);
+          throw new Error(
+            `API returned unknown code: ${response.data.response_code}`
+          );
       }
     } catch (error) {
       console.error("Error fetching questions:", error);
@@ -177,7 +185,15 @@ const Quiz = () => {
     } finally {
       setLoading(false);
     }
-  }, [questionCount, difficulty, category, sessionToken, getSessionToken, makeRateLimitedApiCall, categoryMap]);
+  }, [
+    questionCount,
+    difficulty,
+    category,
+    sessionToken,
+    getSessionToken,
+    makeRateLimitedApiCall,
+    categoryMap,
+  ]);
 
   useEffect(() => {
     fetchQuestions();
