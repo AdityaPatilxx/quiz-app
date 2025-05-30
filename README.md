@@ -1,6 +1,6 @@
 # QuizMaster 🧠
 
-A modern, interactive quiz application built with React and Firebase, featuring user authentication, customizable quizzes, and progress tracking. Perfect for testing knowledge across various categories with questions sourced from the Open Trivia Database.
+A interactive quiz application built with React and Firebase, featuring user authentication, Timed quizzes, and progress tracking. Perfect for testing knowledge across various categories with questions sourced from the Open Trivia Database.
 
 ![Firebase](https://img.shields.io/badge/Firebase-latest-orange?logo=firebase)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-06B6D4?logo=tailwindcss)
